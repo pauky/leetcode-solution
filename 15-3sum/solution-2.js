@@ -5,7 +5,6 @@
 var threeSum = function (nums) {
     if (nums.length < 3) return []
     const hash = {}
-    const set = new Set()
     const res = []
     let target = 0
     for (let i = 0; i < nums.length; i++) {
@@ -15,12 +14,20 @@ var threeSum = function (nums) {
         for (let j = i + 1; j < nums.length; j++) {
             target = -(nums[i] + nums[j])
             const r = [nums[i], nums[j], target]
-            const k = r.sort().join('*')
-            if (typeof hash[target] === 'number' && hash[target] !== i && hash[target] !== j && !set.has(k)) {
+            if (typeof hash[target] === 'number' && hash[target] > i && hash[target] > j) {
                 res.push(r)
-                set.add(k)
             }
         }
     }
-    return res
+    // 去重
+    const set = new Set()
+    const result = []
+    res.forEach(item => {
+        const k = item.sort().join('*')
+        if (!set.has(k)) {
+            set.add(k)
+            result.push(item)
+        }
+    })
+    return result
 };
