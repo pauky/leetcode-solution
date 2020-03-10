@@ -35,7 +35,7 @@ var minPathSum = function(grid) {
 
 ### 复杂度分析
 * 时间复杂度：O(m*n)
-* 空间复杂度：O(m*n)
+* 空间复杂度：O(1)，复用grid，不需要额外的存储空间
 
 ### 思路
 * 一维DP方程： dp[j] = g[i,j] + min(dp[j], dp[j+1])
