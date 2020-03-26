@@ -17,7 +17,7 @@
  * @param {number[]} nums
  * @return {number}
  */
-var rob1 = function(nums) {
+var rob = function(nums) {
     if (!nums || nums.length === 0) return 0
 
     const n = nums.length
@@ -41,16 +41,16 @@ var rob1 = function(nums) {
 ### 思路
 * 一维DP
 * 状态定义：
-    * a[i] 0..i天，如果偷nums[i]得到的最大值
+    * a[i] 表示前i个房子的最大价值
+    * 它可以表示为第i-1房子偷的价值(a[i-1])与当前房子偷的价值(a[i-2]+nums[i])中的最大者
 * DP方程：
-    * a[i] = max(a[i-1], a[i-2]+nums[i], a[i-3]+nums[i]...)
-    * 因为既然偷了i，那肯定是偷了a[i-2]，因为房子是价值是正数，必须隔一天偷一次
-* 解：max(a)，数组a里的最大值
+    * a[i] = max(a[i-1], a[i-2]+nums[i])
+* 解：a的最后一个元素值
 
 
 ### 代码
 ```js
-var rob2 = function(nums) {
+var rob = function(nums) {
     if (!nums || nums.length === 0) return 0
     if (nums.length === 1) return nums[0]
 
@@ -59,7 +59,7 @@ var rob2 = function(nums) {
         a[i] = Math.max(a[i-1], a[i-2] + nums[i])
     }
 
-    return Math.max(...a)
+    return a[a.length - 1]
 }
 ```
 
