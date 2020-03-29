@@ -87,7 +87,7 @@ var uniquePaths3 = function(m, n) {
     const dp = new Array(m).fill(1)
     for (let j = 1; j < n; j++) {
         for (let i = 1; i < m; i++) {
-            dp[i] = dp[i] + dp[i-1]
+            dp[i] += dp[i-1]
         }
     }
     return dp[m-1]
