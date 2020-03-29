@@ -16,6 +16,7 @@
 * 因为机器人只能向下或向右移动，所以(i,j)格子每次只能走到(i-1,j)或(i,j-1)，所以(i,j)的路径数量即为两者的路径数量之和
 * DP方程：
 * dp[i][j] = dp[i-1][j] + dp[i][j-1]
+* 注：先用i或j轴遍历都可以，顺序不限
 
 ### 代码
 ```js
@@ -43,3 +44,55 @@ var uniquePaths = function(m, n) {
 ### 复杂度分析
 * 时间复杂度：O(m*n)
 * 空间复杂度：O(m*n)
+
+## 解法2：一维DP，空间 O(2n)
+### 思路
+* 由解法1可知，每次需要(i,j)位置下方的值和右方的值
+* 如果我们用一个数组prev存储上一行的值，一个数组current存当前正在迭代的行
+* (i,j)位置下方的值为prev[i], 右方的值为current[i-1]
+* DP方程：current[i] = prev[i] + current[i-1]
+* 注意是先用 j 轴遍历
+
+### 代码
+```js
+var uniquePaths2 = function(m, n) {
+    let prev = new Array(m).fill(1)
+    let current = new Array(m).fill(1)
+    for (let j = 1; j < n; j++) {
+        for (let i = 1; i < m; i++) {
+            current[i] = prev[i] + current[i-1]
+        }
+        prev = current.slice(0)
+    }
+    return current[m-1]
+}
+```
+
+### 复杂度分析
+* 时间复杂度：O(m*n)
+* 空间复杂度：O(2n)
+
+
+## 解法3：一维DP，空间 O(n)
+### 思路
+* 由解法2可知，每次需要上一次状态和当前的前一个状态
+* 上一次状态其实在current已经记录了，所以prev也可以优化掉
+* DP方程：
+* dp[i] = dp[i] + dp[i-1]
+* 注意是先用 j 轴遍历
+
+### 代码
+```js
+var uniquePaths3 = function(m, n) {
+    const dp = new Array(m).fill(1)
+    for (let j = 1; j < n; j++) {
+        for (let i = 1; i < m; i++) {
+            dp[i] = dp[i] + dp[i-1]
+        }
+    }
+    return dp[m-1]
+}
+```
+### 复杂度分析
+* 时间复杂度：O(m*n)
+* 空间复杂度：O(n)
