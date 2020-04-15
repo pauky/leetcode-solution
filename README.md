@@ -1,4 +1,3 @@
-# LeetCode解法大全
+# LeetCode题解及总结
 
-* [LeetCode中国站](https://leetcode-cn.com/)
-* [LeetCode全球站](https://leetcode-cn.com/)
+* summary - 总结
